@@ -12,5 +12,5 @@ sequenceDiagram
     server-->>browser: [{"message":"note created"}]
     deactivate server
 
-    Note right of browser: The server responds with 201 Created status code with JSON message saying that the note was created
+    Note right of browser: The server responds with 201 Created status code with JSON message saying that the note was created. The browser executes the callback function that renders the notes
 ```
