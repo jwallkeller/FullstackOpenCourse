@@ -16,6 +16,10 @@ const App = () => {
   const [votes, setVotes] = useState({
     0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0,
   })
+  const [mostVotes, setMostVotes] = useState({
+    num: 0,
+    anecdote: 0,
+  })
 
   const handleNextAnecdote = () => {
     setSelected(Math.floor(Math.random() * anecdotes.length))
@@ -25,15 +29,31 @@ const App = () => {
     const copy = { ...votes }
     copy[selected] += 1
     setVotes(copy)
+    updateMostVotes(copy)
+  }
+
+  const updateMostVotes = (copy) => {
+    const tmp = { ...mostVotes }
+    for (const [key, value] of Object.entries(copy)) {
+      if (value > mostVotes.num) {
+        tmp.num = value
+        tmp.anecdote = key
+      }
+    }
+    setMostVotes(tmp)
   }
 
   return (
     <div>
+      <h1>Anecdote of the day</h1>
       {anecdotes[selected]}
       <p>has {votes[selected]} votes</p>
       <br></br>
       <button onClick={handleVotes}>vote</button>
       <button onClick={handleNextAnecdote}>next anecdote</button>
+      <h1>Anecdote with the most votes</h1>
+      {anecdotes[mostVotes.anecdote]}
+      <p>has {mostVotes.num} votes</p>
     </div>
   )
 }
