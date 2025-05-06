@@ -6,6 +6,19 @@ const Button = (props) => <button onClick={props.onClick}>{props.text}</button>
 
 const Display = (props) => <p>{props.text} {props.stat}</p>
 
+const Statistics = (props) => {
+  return (
+    <div>
+      <Display text='good' stat={props.stats.good} />
+      <Display text='neutral' stat={props.stats.neutral} />
+      <Display text='bad' stat={props.stats.bad} />
+      <Display text='all' stat={props.stats.total} />
+      <Display text='average' stat={props.stats.avg} />
+      <Percentage text='positive' stat={props.stats.pos} />
+    </div>
+  )
+}
+
 const Percentage = (props) => <p>{props.text} {props.stat * 100}%</p>
 
 const App = () => {
@@ -15,6 +28,15 @@ const App = () => {
   const [total, setTotal] = useState(0)
   const [avg, setAverage] = useState(0)
   const [pos, setPositive] = useState(0)
+
+  const stats = {
+    good: good,
+    neutral: neutral,
+    bad: bad,
+    total: total,
+    avg: avg,
+    pos: pos
+  }
 
   const handleGoodClick = () => {
     const updatedGood = good + 1
@@ -49,12 +71,7 @@ const App = () => {
       <Button onClick={handleNeutralClick} text='neutral'></Button>
       <Button onClick={handleBadClick} text='bad'></Button>
       <Header title="statistics" />
-      <Display text='good' stat={good} />
-      <Display text='neutral' stat={neutral} />
-      <Display text='bad' stat={bad} />
-      <Display text='all' stat={total} />
-      <Display text='average' stat={avg} />
-      <Percentage text='positive' stat={pos} />
+      <Statistics stats={stats}></Statistics>
     </div>
   )
 }
