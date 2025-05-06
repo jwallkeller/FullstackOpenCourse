@@ -4,7 +4,7 @@ const Header = (props) => <h1>{props.title}</h1>
 
 const Button = (props) => <button onClick={props.onClick}>{props.text}</button>
 
-const Display = (props) => <p>{props.text} {props.stat}</p>
+const StatisticLine = (props) => <p>{props.text} {props.value}{props.symbol}</p>
 
 const Statistics = (props) => {
   if (props.stats.total === 0) {
@@ -16,17 +16,15 @@ const Statistics = (props) => {
   }
   return (
     <div>
-      <Display text='good' stat={props.stats.good} />
-      <Display text='neutral' stat={props.stats.neutral} />
-      <Display text='bad' stat={props.stats.bad} />
-      <Display text='all' stat={props.stats.total} />
-      <Display text='average' stat={props.stats.avg} />
-      <Percentage text='positive' stat={props.stats.pos} />
+      <StatisticLine text='good' value={props.stats.good} />
+      <StatisticLine text='neutral' value={props.stats.neutral} />
+      <StatisticLine text='bad' value={props.stats.bad} />
+      <StatisticLine text='all' value={props.stats.total} />
+      <StatisticLine text='average' value={props.stats.avg} />
+      <StatisticLine text='positive' value={props.stats.pos} symbol='%' />
     </div>
   )
 }
-
-const Percentage = (props) => <p>{props.text} {props.stat * 100}%</p>
 
 const App = () => {
   const [good, setGood] = useState(0)
