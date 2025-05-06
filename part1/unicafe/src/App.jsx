@@ -7,6 +7,13 @@ const Button = (props) => <button onClick={props.onClick}>{props.text}</button>
 const Display = (props) => <p>{props.text} {props.stat}</p>
 
 const Statistics = (props) => {
+  if (props.stats.total === 0) {
+    return (
+      <div>
+        No feedback given
+      </div>
+    )
+  }
   return (
     <div>
       <Display text='good' stat={props.stats.good} />
