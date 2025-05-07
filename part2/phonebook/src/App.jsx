@@ -1,5 +1,39 @@
 import { useState } from 'react'
 
+const Filter = ( {searchTerm, handleSearchTermChange} ) => {
+  return (
+    <div>
+      filter shown with <input value={searchTerm} onChange={handleSearchTermChange} />
+    </div>
+  )
+}
+
+const PersonForm = ( {addContact, newName, handleNameChange, newNumber, handleNumberChange} ) => {
+  return (
+    <form onSubmit={addContact}>
+      <div>
+        name: <input value={newName} onChange={handleNameChange} />
+      </div>
+      <div>
+        number: <input value={newNumber} onChange={handleNumberChange} />
+      </div>
+      <div>
+        <button type="submit">add</button>
+      </div>
+    </form>
+  )
+}
+
+const Persons = ( {displayedContacts} ) => {
+  return (
+    <ul>
+      {displayedContacts.map(contact => 
+        <li key={contact.id}>{contact.name} {contact.number}</li>
+      )}
+    </ul>
+  )
+}
+
 const App = () => {
   const [persons, setPersons] = useState([
     { name: 'Arto Hellas', number: '040-123456', id: 1 },
@@ -22,9 +56,12 @@ const App = () => {
 
     const contact = {
       name: newName,
-      number: newNumber
+      number: newNumber,
+      id: persons.length + 1
     }
-    setPersons(persons.concat(contact))
+    const contacts = persons.concat(contact)
+    setPersons(contacts)
+    setDisplayedContacts(contacts)
     setNewName('')
     setNewNumber('')
   }
@@ -51,27 +88,11 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
-      <div>
-          filter shown with <input value={searchTerm} onChange={handleSearchTermChange} />
-      </div>
-      <h2>add a new</h2>
-      <form onSubmit={addContact}>
-        <div>
-          name: <input value={newName} onChange={handleNameChange} />
-        </div>
-        <div>
-          number: <input value={newNumber} onChange={handleNumberChange} />
-        </div>
-        <div>
-          <button type="submit">add</button>
-        </div>
-      </form>
-      <h2>Numbers</h2>
-      <ul>
-        {displayedContacts.map(contact => 
-          <li key={contact.id}>{contact.name} {contact.number}</li>
-        )}
-      </ul>
+      <Filter searchTerm={searchTerm} handleSearchTermChange={handleSearchTermChange} />
+      <h3>Add a new</h3>
+      <PersonForm addContact={addContact} newName={newName} handleNameChange={handleNameChange} newNumber={newNumber} handleNumberChange={handleNumberChange} />
+      <h3>Numbers</h3>
+      <Persons displayedContacts={displayedContacts} />
     </div>
   )
 }
