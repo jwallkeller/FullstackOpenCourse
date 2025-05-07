@@ -9,6 +9,7 @@ const Content = ( {parts} ) => (
         </li>
       )}
     </ul>
+    <Total parts={parts} />
   </div>
 )
 
@@ -18,7 +19,9 @@ const Part = (props) => (
   </p>
 )
 
-const Total = (props) => <p>Number of exercises {props.total}</p>
+const Total = ( {parts} ) => (
+  <p>Number of exercises {parts.reduce((sum, num) => sum + num.exercises, 0)}</p>
+)
 
 const Course = ( {course} ) => {
   return (
@@ -36,7 +39,7 @@ const App = () => {
     parts: [
       {
         name: 'Fundamentals of React',
-        exercises: 10,
+        exercises: 11,
         id: 1
       },
       {
@@ -46,7 +49,7 @@ const App = () => {
       },
       {
         name: 'State of a component',
-        exercises: 14,
+        exercises: 4,
         id: 3
       },
       {
