@@ -64,6 +64,13 @@ const App = () => {
       number: newNumber,
       id: persons.length + 1
     }
+
+    axios
+      .post('http://localhost:3001/persons', contact)
+      .then(response => {
+        console.log(response)
+      })
+
     const contacts = persons.concat(contact)
     setPersons(contacts)
     setDisplayedContacts(contacts)
